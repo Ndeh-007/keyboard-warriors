@@ -1,0 +1,39 @@
+:root {
+  /* primary */
+  /* --primary-color: #5e89ef; */
+  --primary-color: #3b82f6;
+  --primary-tint-color: #3b82f61a;
+
+  /* success */
+  --success-color: #239d60;
+  --success-tint-color: #239d601a;
+
+  /* warning */
+  --warning-color: #ffcd19;
+  --warning-tint-color: #ffcd191a;
+
+  /* danger */
+  --danger-color: #fc345c;
+  --danger-tint-color: #fc345c1a;
+
+  /* secondary */
+  --secondary-color: #bad4f9;
+
+  /* tertiary */
+  --tertiary-color: #f7f5b2;
+
+  /* dark */
+  --dark-color: #1e2022;
+  --dark-color-tint: #1e20221a;
+
+  /* medium */
+  --medium-color: #757882;
+  --medium-tint-color: #7578821a;
+
+  --light-color: #f2f3f7;
+  --white-color: #ffffff;
+  --black-color: #000000;
+
+  /* the original blue. delete if needed */
+  --primary-blue: #3b82f6;
+}

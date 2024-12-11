@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+
+// import css
+import "./styles/tailwind.css"
+import './styles/index.css';
+
+// import components
 import App from './App';
+
+// import workers
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
