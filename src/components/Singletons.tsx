@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import {
   FromToFilterData,
   FromToFilterGroup,
@@ -41,7 +41,6 @@ export const FromToFilterEntry: React.FC<FromToFilterGroup> = ({
   pid,
   onEntryChanged,
 }) => {
-
   const [entries, setEntries] = useState<FromToFilterData>({
     pid: pid ? pid : "",
     from: undefined,
@@ -50,7 +49,6 @@ export const FromToFilterEntry: React.FC<FromToFilterGroup> = ({
   });
 
   function collectInputValues(target: "from" | "to", value: string) {
-
     let v = parseFloat(value);
     let opts = { ...entries };
 
@@ -71,11 +69,11 @@ export const FromToFilterEntry: React.FC<FromToFilterGroup> = ({
     setEntries(opts);
   }
 
-  function clearEntries(){
-    let e = {...entries}
-    e.from = undefined
-    e.to = undefined
-    setEntries(e)
+  function clearEntries() {
+    let e = { ...entries };
+    e.from = undefined;
+    e.to = undefined;
+    setEntries(e);
   }
 
   return (
@@ -104,7 +102,7 @@ export const FromToFilterEntry: React.FC<FromToFilterGroup> = ({
 
 export const FilterNode: React.FC<{
   data: FromToFilterData;
-  onCancelClicked: (node: FromToFilterData)=>any;
+  onCancelClicked: (node: FromToFilterData) => any;
   mode: "clear" | "full";
 }> = ({ data, onCancelClicked, mode }) => {
   return (
@@ -127,8 +125,7 @@ export const FilterNode: React.FC<{
 export const FilterBar: React.FC<{
   filters: FromToFilterData[];
   onRemoveFilter: (data: FromToFilterData) => any;
-}> = ({ filters, onRemoveFilter }) => { 
-
+}> = ({ filters, onRemoveFilter }) => {
   return (
     <div className="filter-bar">
       <div className="dynamic-nodes-holder">
@@ -209,8 +206,14 @@ export const CustomTabs: React.FC<{
   const nLeft = leftEntries.length;
   // const nRight = rightEntries.length;
 
-  const [tabEntries] = useState([...leftEntries, ...rightEntries]);
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  // const [tabEntries] = useState([...leftEntries, ...rightEntries]);
+  const tabEntries = useMemo(
+    () => [...leftEntries, ...rightEntries],
+    [leftEntries, rightEntries]
+  );
+  const [currentTabIndex, setCurrentTabIndex] = useState(
+    useExternalIndex ? externalIndex : 0
+  );
 
   function assignCurrentIndex(value: number) {
     setCurrentTabIndex(value);
@@ -251,7 +254,7 @@ export const CustomTabs: React.FC<{
                   <CustomTabHeaderEntry
                     callback={assignCurrentIndex}
                     index={index + nLeft}
-                    key={index}
+                    key={index + nLeft}
                     text={entry.title}
                     activeIndex={currentTabIndex}
                   />

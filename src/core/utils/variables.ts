@@ -14,6 +14,7 @@ export const SAMPLE_CHALLENGES: Challenge[] = ChallengesJSON.map((item) => {
     c.cost = Math.round((c.cost / 10e11)) / 100
     c.date = Math.round((c.date / 10e3)) / 1
     c.duration = Math.round((c.duration / 10e13)) / 1
+    c.errorcount = Math.round((c.errorcount / 10e13)) / 1
     return c
 })
 

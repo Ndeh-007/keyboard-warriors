@@ -24,8 +24,8 @@ const AppRouter: React.FC = () => {
         {/* <Route path={APP_ROUTES['delete'].url} element={<DeleteChallengePage/>} /> */}
         {/* <Route path={APP_ROUTES['accept'].url} element={<AcceptChallengePage/>} /> */}
         <Route path={APP_ROUTES['issueChallenge'].url} element={<IssueChallengePage />} />
-        <Route path={APP_ROUTES['deleteChallenge'].url} element={<DeleteChallengePage/>} key={"challenge_id"}/>
-        <Route path={APP_ROUTES['acceptChallenge'].url} element={<AcceptChallengePage/>} key="challenge_id" />
+        <Route path={APP_ROUTES['deleteChallenge'].url} element={<DeleteChallengePage/>}/>
+        <Route path={APP_ROUTES['acceptChallenge'].url} element={<AcceptChallengePage/>}/>
         <Route path={APP_ROUTES['notFound'].url} element={<Error404Page />} />
       </Routes>
     </BrowserRouter>

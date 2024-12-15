@@ -154,11 +154,11 @@ const CompleteChallenge: React.FC<{
             </div>
             <div className="stack-items">
               <div className="top-item">Time(s)</div>
-              <div className="bottom-item">{challenge?.consistency}</div>
+              <div className="bottom-item">{challenge?.duration}</div>
             </div>
             <div className="stack-items">
               <div className="top-item">Consistency(%)</div>
-              <div className="bottom-item">{challenge?.errorcount}</div>
+              <div className="bottom-item">{challenge?.consistency}</div>
             </div>
           </div>
         </div>
@@ -288,8 +288,6 @@ const AcceptChallengePage: React.FC = () => {
 
   // #region initialize
 
-  instantiate(challenge_id ? challenge_id : "_invalid");
-
   // #endregion
 
   // #region workers
@@ -329,11 +327,8 @@ const AcceptChallengePage: React.FC = () => {
     // handles cases for accepting a challenge via accept button or from browser link
     // accept challenge button takes precedence.
 
-    if (location.state) {
-      console.log("state exists")
-      console.log(location.state)
-      instantiate(location.state.challenge_id);
-    }
+    if (location.state) return instantiate(location.state.challenge_id);
+    instantiate(challenge_id ? challenge_id : "_invalid");
   }, [location, challenge_id]);
 
   // #endregion
