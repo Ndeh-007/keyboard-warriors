@@ -97,10 +97,12 @@ const FindChallengesPage: React.FC = () => {
     // although this may cause a lot of db resource usage, but no wahala.
 
     // this is very BAD PROGRAMMING !!!
-
+    
+    // fetch all active challenges
     fetchChallenges({
       quantity: 10,
       filters: filters,
+      pool: "active",
     })
       .then((ch) => setChallenges(ch))
       .catch((e) => console.error(e));
@@ -191,15 +193,14 @@ const FindChallengesPage: React.FC = () => {
                     );
                   })}
 
-                  {
-                    challenges.length === 0 && (
-                      <InlineAlert color="warning"
+                  {challenges.length === 0 && (
+                    <InlineAlert
+                      color="warning"
                       open={challenges.length === 0}
                       text="No challenges found, refine search parameters"
-                      onClose={()=>{}}
-                      />
-                    )
-                  }
+                      onClose={() => {}}
+                    />
+                  )}
                 </div>
               </div>
             </div>

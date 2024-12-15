@@ -163,7 +163,6 @@ export const InlineAlert: React.FC<{
   open,
 }) => {
   useEffect(() => {
-    console.log(open);
     if (open) {
       const timer = setTimeout(() => {
         onClose();

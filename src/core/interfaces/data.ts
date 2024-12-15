@@ -42,4 +42,5 @@ export interface OperationSettings {
 export interface FetchChallengeOptions{
     quantity: number,
     filters: FromToFilterData[],
+    pool: "user" | "active"
 }
