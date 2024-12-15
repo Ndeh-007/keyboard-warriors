@@ -13,7 +13,7 @@ import {
 } from "../components/Singletons";
 import {
   LANGUAUGE_CHALLENGE_OPTIONS,
-  SAMPLE_CHALLENGE,
+  DEFAULT_CHALLENGE,
   TEXT_TYPE_CHALLENGE_OPTIONS,
   TIME_CHALLENGE_OPTIONS,
 } from "../core/utils/variables";
@@ -103,7 +103,7 @@ const CreateChallenge: React.FC<{
         <div className="left-pane-content">
           <FindChallengeCard
             showActionBtn={false}
-            challenge={SAMPLE_CHALLENGE}
+            challenge={DEFAULT_CHALLENGE}
             view="delete"
             btnClickedCallback={() => {}}
           />
@@ -219,7 +219,7 @@ const CreateChallenge: React.FC<{
 };
 
 const IssueChallengePage: React.FC = () => {
-  const [challenge, setChallenge] = useState(SAMPLE_CHALLENGE);
+  const [challenge, setChallenge] = useState(DEFAULT_CHALLENGE);
   const [tabIndex, setTabIndex] = useState(0);
 
   function onConfigComplete(c: Challenge) {

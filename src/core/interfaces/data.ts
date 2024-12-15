@@ -1,3 +1,5 @@
+import { FromToFilterData } from "./components";
+
 export interface User {
     id: string;
     username: string;
@@ -35,4 +37,9 @@ export interface OperationSettings {
     minChallengeCost: number;
     maxChallengeCost: number;
     currency: string;
+}
+
+export interface FetchChallengeOptions{
+    quantity: number,
+    filters: FromToFilterData[],
 }

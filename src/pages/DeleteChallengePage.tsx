@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FindChallengeCard from "../components/FindChallengeCard";
-import { SAMPLE_CHALLENGE } from "../core/utils/variables";
+import { DEFAULT_CHALLENGE } from "../core/utils/variables";
 import {
   Card,
   CardBody,
@@ -36,7 +36,7 @@ const DeleteChallengePage: React.FC = () => {
               <div className="left-pane-content">
                 <FindChallengeCard
                   showActionBtn={false}
-                  challenge={SAMPLE_CHALLENGE}
+                  challenge={DEFAULT_CHALLENGE}
                   view="delete"
                   btnClickedCallback={() => {}}
                 />

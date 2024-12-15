@@ -105,31 +105,32 @@
 /* filter node */
 .filter-node {
   width: fit-content;
-  padding: 3px;
+  padding: 5px;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
   gap: 5px;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 1rem;
   cursor: pointer;
+  color: var(--medium-color);
 }
 
 .filter-node-clear {
-  border: 1px solid var(--primary-color);
-  color: 1px solid var(--primary-color);
+  border: 1px solid var(--medium-color);
+  color: 1px solid var(--medium-color);
   background: var(--white-color);
 }
 
 .filter-node-full {
-  border: 1px solid var(--primary-color);
-  color: 1px solid var(--primary-color);
-  background: #5e89ef1e;
+  border: 1px solid var(--medium-color);
+  color: 1px solid var(--medium-color);
+  background: var(--medium-tint-color);
 }
 
 .filter-node-text {
-  font-weight: 500;
-  color: var(--primary-color);
+  font-weight: 400;
+  color: inherit;
 }
 
 .filter-node-button-holder {
@@ -143,8 +144,9 @@
 }
 
 .filter-node-button .material-icons {
-  color: var(--primary-color);
-  font-size: 10px;
+  color: inherit;
+  font-size: 16px;
+  display: block;
 }
 
 /* filter bar */

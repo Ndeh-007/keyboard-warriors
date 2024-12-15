@@ -2,17 +2,17 @@ import React from "react";
 import FindChallengeCard from "./FindChallengeCard";
 import { Challenge } from "../core/interfaces/data";
 import { Accordion, FilterBar, FromToFilterEntry } from "./Singletons";
-import { FROM_TO_GROUPS, SAMPLE_CHALLENGE } from "../core/utils/variables";
+import { FROM_TO_GROUPS, DEFAULT_CHALLENGE } from "../core/utils/variables";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "../core/routes";
 
 const MyChallengesTabContent: React.FC = () => {
-  let c: Challenge = SAMPLE_CHALLENGE;
+  let c: Challenge = DEFAULT_CHALLENGE;
   let navigate = useNavigate();
 
   const c_arr = [c, c, c, c, c, c, c, c, c, c, c];
   const filterGroups = FROM_TO_GROUPS.map((g) => {
-    g.callback = fromToGroupCallbackHandler;
+    g.onEntryChanged = fromToGroupCallbackHandler;
     return g;
   });
 
@@ -29,7 +29,7 @@ const MyChallengesTabContent: React.FC = () => {
     console.log(opts);
   }
 
-  function filterBarCallback() {
+  function onRemoveFilter() {
     console.log("filter bar callback");
   }
 
@@ -75,7 +75,7 @@ const MyChallengesTabContent: React.FC = () => {
                 <FromToFilterEntry
                   key={index}
                   title={filter?.title}
-                  callback={filter.callback}
+                  onEntryChanged={filter.onEntryChanged}
                   pid={filter.pid}
                 />
               );
@@ -85,7 +85,7 @@ const MyChallengesTabContent: React.FC = () => {
           {/* filter results */}
           <div className="filter-results filter-box overflow-scrollbar">
             <div className="filter-options">
-              <FilterBar filters={[]} callback={filterBarCallback} />
+              <FilterBar filters={[]} onRemoveFilter={onRemoveFilter} />
             </div>
 
             {/* card region */}

@@ -13,15 +13,21 @@ export type AppColors = "primary" | "secondary" | "tertiary" | "danger" | "succe
 export type ChallengeResultsState = "processing" | "failed" | "passed"
 
 export interface FromToFilterGroup {
-    title?: string;
-    callback?: Function;
-    pid?: string;
+    title: string;
+    pid: string;
+    onEntryChanged: (opt: any) => any;
 }
 
 export interface FromToFilterData {
     pid: string;
     from: number | undefined;
     to: number | undefined;
+    text?: string
+}
+
+export interface FromToFilterBar{
+    id: string,
+    value: string
 }
 
 export interface TabEntry {

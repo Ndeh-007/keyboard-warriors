@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Challenge } from "../core/interfaces/data";
-import { FROM_TO_GROUPS, SAMPLE_CHALLENGE } from "../core/utils/variables";
+import { FROM_TO_GROUPS, SAMPLE_CHALLENGES } from "../core/utils/variables";
 import {
   Accordion,
   FilterBar,
@@ -11,6 +11,9 @@ import {
 } from "../components/Singletons";
 import FindChallengeCard from "../components/FindChallengeCard";
 import { APP_ROUTES } from "../core/routes";
+import { FromToFilterData } from "../core/interfaces/components";
+import { fetchChallenges } from "../core/apis/challenges";
+import { InlineAlert } from "../components/dialog";
 
 const FindChallengesPageSubheader: React.FC = () => {
   let navigate = useNavigate();
@@ -21,26 +24,30 @@ const FindChallengesPageSubheader: React.FC = () => {
 
   return (
     <div className="find-challenges-page-subheader">
-        <button className="item" onClick={() => handleBtnClick()}>
-          Issue Challenge {" "}<span className="material-icons">add</span>
-        </button>
+      <button className="item" onClick={() => handleBtnClick()}>
+        Issue Challenge <span className="material-icons">add</span>
+      </button>
     </div>
   );
 };
 
 const FindChallengesPage: React.FC = () => {
   let navigate = useNavigate();
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+  const [filters, setFilters] = useState<FromToFilterData[]>([]);
 
-  let c: Challenge = SAMPLE_CHALLENGE;
-
-  const c_arr = [c, c, c, c, c, c, c, c, c, c, c];
   const filterGroups = FROM_TO_GROUPS.map((g) => {
-    g.callback = filterGroupsCallbackHandler;
+    g.onEntryChanged = filterGroupsCallbackHandler;
     return g;
   });
 
-  // #region workers
-  function handleCardButtonClicked(opts: Challenge) {
+  // #region event handlers
+  function handleItemOrderChanged(checked: boolean, order: string) {
+    console.log(checked, order);
+    return;
+  }
+
+  function onAcceptChallengeClicked(opts: Challenge) {
     let url = `/accept/${opts.id}`;
     navigate(url, {
       state: {
@@ -49,13 +56,55 @@ const FindChallengesPage: React.FC = () => {
     });
   }
 
-  function filterGroupsCallbackHandler(opts: any) {
-    console.log(opts);
+  function onRemoveFilter(node: FromToFilterData) {
+    if (node.pid === "clear") return setFilters([]);
+
+    let fs = [...filters];
+    fs = fs.filter((item) => item.pid !== node.pid);
+    setFilters(fs);
   }
 
-  function filterBarCallback() {
-    console.log("filter bar callback");
+  //#endregion
+
+  //#region workers
+
+  function filterGroupsCallbackHandler(opts: FromToFilterData) {
+    let fs = [...filters];
+
+    // check if the current filter object has already been created
+    let f = fs.filter((v) => v.pid === opts.pid);
+
+    // if it hasn't been created, create it
+    if (f.length === 0) {
+      fs.push(opts);
+    } else {
+      // if it has been created,
+      // update that entry with the new data
+      let i = fs.indexOf(f[0]);
+      fs[i] = opts;
+    }
+
+    // set the newly updated data
+    setFilters(fs);
   }
+
+  // #endregion
+
+  useEffect(() => {
+    // every time the filters change, search for new items
+    // this would just refetch the db with the new items
+    // rather than filter in place, that is just easier on god.
+    // although this may cause a lot of db resource usage, but no wahala.
+
+    // this is very BAD PROGRAMMING !!!
+
+    fetchChallenges({
+      quantity: 10,
+      filters: filters,
+    })
+      .then((ch) => setChallenges(ch))
+      .catch((e) => console.error(e));
+  }, [filters]);
 
   return (
     <div className="w-full h-screen find-challenges-page">
@@ -75,24 +124,35 @@ const FindChallengesPage: React.FC = () => {
                     <div>
                       <input
                         type="radio"
-                        id="asc"
+                        id="asc1"
                         name="order"
                         value="asc"
                         className="mr-4 mt-1"
+                        onChange={(e) =>
+                          handleItemOrderChanged(
+                            e.target.checked,
+                            e.target.value
+                          )
+                        }
                       />
-                      <label htmlFor="asc">Oldest First</label>
+                      <label htmlFor="asc1">Oldest First</label>
                     </div>
 
                     <div>
                       <input
                         type="radio"
-                        id="desc"
+                        id="desc1"
                         name="order"
                         value="desc"
                         className="mr-4 mt-2"
-                        checked
+                        onChange={(e) =>
+                          handleItemOrderChanged(
+                            e.target.checked,
+                            e.target.value
+                          )
+                        }
                       />
-                      <label htmlFor="desc">Newest First</label>
+                      <label htmlFor="desc1">Newest First</label>
                     </div>
                   </fieldset>
                 </Accordion>
@@ -102,7 +162,7 @@ const FindChallengesPage: React.FC = () => {
                     <FromToFilterEntry
                       key={index}
                       title={filter?.title}
-                      callback={filter.callback}
+                      onEntryChanged={filter.onEntryChanged}
                       pid={filter.pid}
                     />
                   );
@@ -112,21 +172,34 @@ const FindChallengesPage: React.FC = () => {
               {/* filter results */}
               <div className="filter-results filter-box overflow-scrollbar">
                 <div className="filter-options">
-                  <FilterBar filters={[]} callback={filterBarCallback} />
+                  <FilterBar
+                    filters={filters}
+                    onRemoveFilter={onRemoveFilter}
+                  />
                 </div>
 
                 {/* card region */}
                 <div className="challenge-cards-holder">
-                  {c_arr.map((v, index) => {
+                  {challenges.map((c, index) => {
                     return (
                       <FindChallengeCard
                         key={index}
                         view="browse"
-                        challenge={v}
-                        btnClickedCallback={handleCardButtonClicked}
+                        challenge={c}
+                        btnClickedCallback={onAcceptChallengeClicked}
                       />
                     );
                   })}
+
+                  {
+                    challenges.length === 0 && (
+                      <InlineAlert color="warning"
+                      open={challenges.length === 0}
+                      text="No challenges found, refine search parameters"
+                      onClose={()=>{}}
+                      />
+                    )
+                  }
                 </div>
               </div>
             </div>

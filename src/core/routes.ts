@@ -16,13 +16,11 @@ let paths = [
     new RoutePair("auth", "Authentication", "/auth"),
     new RoutePair("home", "Find Challenges", "/browse"),
     new RoutePair("profile", "Profile", "/profile"),
-    new RoutePair("issueChallenge", "Issue Challenge", "/issue-challenge"),
-    new RoutePair("acceptChallenge", "AccepthChallenge", "/accept-challenge"),
     new RoutePair("legal", "Legal", "/legal"),
     new RoutePair("notFound", "Page not Found", "*"),
     new RoutePair("delete", "Delete Challenge", "/delete"),
+    new RoutePair("issueChallenge", "Issue Challenge", "/issue-challenge"),
     new RoutePair("deleteChallenge", "Delete Challenge Id", "/delete/:challenge_id"),
-    new RoutePair("accept", "Accept Challenge", "/accept"),
     new RoutePair("acceptChallenge", "Accept Challenge Id", "/accept/:challenge_id"),
 ]
 

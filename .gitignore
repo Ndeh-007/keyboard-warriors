@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# brain dump
+/temp
+
 # testing
 /coverage
 

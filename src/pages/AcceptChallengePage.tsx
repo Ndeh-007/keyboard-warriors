@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FindChallengeCard from "../components/FindChallengeCard";
-import { SAMPLE_CHALLENGE, SAMPLE_USER } from "../core/utils/variables";
+import { DEFAULT_CHALLENGE, SAMPLE_USER } from "../core/utils/variables";
 import {
   Card,
   CardBody,
@@ -12,19 +12,23 @@ import {
   CardFooter,
   CustomTabs,
 } from "../components/Singletons";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Challenge, User } from "../core/interfaces/data";
-import { AlertDialog } from "../components/dialog";
+import { AlertDialog, InlineAlert } from "../components/dialog";
 import { APP_ROUTES } from "../core/routes";
 import { ChallengeResultsState } from "../core/interfaces/components";
+import { fetchChallenge } from "../core/apis/challenges";
 
 const MakePayment: React.FC<{
   challenge?: Challenge;
   onPaymentComplete: Function;
 }> = ({ challenge, onPaymentComplete }) => {
+  // #region workers
   function processPayment() {
     onPaymentComplete();
   }
+
+  // #endregion
 
   return (
     <div className="delete-challenge-body">
@@ -32,7 +36,7 @@ const MakePayment: React.FC<{
         <div className="left-pane-content">
           <FindChallengeCard
             showActionBtn={false}
-            challenge={SAMPLE_CHALLENGE}
+            challenge={challenge}
             view="delete"
             btnClickedCallback={() => {}}
           />
@@ -272,19 +276,23 @@ const ChallengeResults: React.FC<{
 };
 
 const AcceptChallengePage: React.FC = () => {
+  const location = useLocation();
+  const { challenge_id } = useParams();
+
   const [tabIndex, setTabIndex] = useState(0);
-  const [challenge] = useState<Challenge>(SAMPLE_CHALLENGE);
+  const [challenge, setChallenge] = useState<Challenge>();
   const [user] = useState<User>(SAMPLE_USER);
 
   const [beginChallengeAlert, setBeginChallengeAlert] = useState(false);
+  const [challengeNotFound, setChallengeNotFound] = useState(false);
 
-  // function stepForward(currentIndex: number) {
-  //   setTabIndex(currentIndex + 1);
-  // }
+  // #region initialize
 
-  // function stepBackward(currentIndex: number) {
-  //   setTabIndex(currentIndex - 1);
-  // }
+  instantiate(challenge_id ? challenge_id : "_invalid");
+
+  // #endregion
+
+  // #region workers
 
   function handlePaymentComplete() {
     // show complete screen and alert
@@ -299,11 +307,54 @@ const AcceptChallengePage: React.FC = () => {
   function handleAlertClose() {
     setBeginChallengeAlert(false);
   }
+
+  function instantiate(cid: string) {
+    // fetches challenge with target id
+    fetchChallenge(cid)
+      .then((ch) => {
+        setChallenge(ch);
+        setChallengeNotFound(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        setChallengeNotFound(true);
+      });
+  }
+
+  // #endregion
+
+  // #region hooks
+
+  useEffect(() => {
+    // handles cases for accepting a challenge via accept button or from browser link
+    // accept challenge button takes precedence.
+
+    if (location.state) {
+      console.log("state exists")
+      console.log(location.state)
+      instantiate(location.state.challenge_id);
+    }
+  }, [location, challenge_id]);
+
+  // #endregion
+
   return (
     <div className="h-screen w-full">
       <Header></Header>
+
       <div className="light-background">
         <div className="container mx-auto">
+          {challengeNotFound && (
+            <div className="pt-3">
+              <InlineAlert
+                open={challengeNotFound}
+                onClose={() => {}}
+                text="Challenge not found. Return to home page and search for more."
+                color="warning"
+              />
+            </div>
+          )}
+
           <div className="pt-5 w-full">
             <CustomTabs
               leftEntries={[
@@ -339,8 +390,7 @@ const AcceptChallengePage: React.FC = () => {
               rightEntries={[]}
               thinHeader={false}
               externalIndex={tabIndex}
-              // todo: uncomment
-              // useExternalIndex={true}
+              useExternalIndex={true}
               fitHeader={true}
             ></CustomTabs>
           </div>

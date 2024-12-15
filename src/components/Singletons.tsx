@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import {
   FromToFilterData,
   FromToFilterGroup,
@@ -39,28 +39,43 @@ export const Accordion: React.FC<{ title?: string; children?: ReactNode }> = ({
 export const FromToFilterEntry: React.FC<FromToFilterGroup> = ({
   title,
   pid,
-  callback,
+  onEntryChanged,
 }) => {
+
   const [entries, setEntries] = useState<FromToFilterData>({
     pid: pid ? pid : "",
     from: undefined,
     to: undefined,
+    text: "",
   });
 
   function collectInputValues(target: "from" | "to", value: string) {
+
     let v = parseFloat(value);
     let opts = { ...entries };
+
+    // check if correct data was passed into the collectors
     opts[target] = isNaN(v) ? undefined : v;
 
-    if (callback) {
-      callback(opts);
-    } else {
-      console.log(
-        `Dispatching from filter ${pid} with change ${target} => ${v}`
-      );
-    }
+    // create the search string to be shown in the chip
+    const _parseStr = (_v: number | undefined) =>
+      _v === undefined ? "" : `${_v}`;
+    opts["text"] = `${opts["pid"]}: ${_parseStr(opts["from"])} - ${_parseStr(
+      opts["to"]
+    )}`;
 
+    // trigger the on entry changed callback
+    onEntryChanged(opts);
+
+    // update the current entries
     setEntries(opts);
+  }
+
+  function clearEntries(){
+    let e = {...entries}
+    e.from = undefined
+    e.to = undefined
+    setEntries(e)
   }
 
   return (
@@ -88,17 +103,16 @@ export const FromToFilterEntry: React.FC<FromToFilterGroup> = ({
 };
 
 export const FilterNode: React.FC<{
-  id: string;
-  text: string;
-  callback: Function;
+  data: FromToFilterData;
+  onCancelClicked: (node: FromToFilterData)=>any;
   mode: "clear" | "full";
-}> = ({ id, text, callback, mode }) => {
+}> = ({ data, onCancelClicked, mode }) => {
   return (
     <div
       className={`filter-node filter-node-${mode}`}
-      onClick={() => callback(id)}
+      onClick={() => onCancelClicked(data)}
     >
-      <div className="filter-node-text">{text}</div>
+      <div className="filter-node-text">{data.text}</div>
       <div className="filter-node-button">
         {mode === "clear" ? (
           <span className="material-icons">delete</span>
@@ -111,49 +125,34 @@ export const FilterNode: React.FC<{
 };
 
 export const FilterBar: React.FC<{
-  filters: { id: string; text: string }[];
-  callback: Function;
-}> = ({ filters, callback }) => {
-  // create sample filters
-  const [filterNodes] = useState(filters);
-
-  function clearFilters() {
-    return;
-  }
-
-  function removeFilter(node_id: string) {
-    return;
-  }
-
-  function nodeCallback(node_id: string) {
-    if (node_id === "clear") {
-      return clearFilters();
-    }
-
-    return removeFilter(node_id);
-  }
+  filters: FromToFilterData[];
+  onRemoveFilter: (data: FromToFilterData) => any;
+}> = ({ filters, onRemoveFilter }) => { 
 
   return (
     <div className="filter-bar">
       <div className="dynamic-nodes-holder">
-        {filterNodes.map((node, index) => {
+        {filters.map((node, index) => {
           return (
             <FilterNode
               key={index}
               mode="full"
-              callback={nodeCallback}
-              id={node.id}
-              text={node.text}
+              onCancelClicked={onRemoveFilter}
+              data={node}
             />
           );
         })}
       </div>
       <div className="static-nodes-holder">
         <FilterNode
-          text="Clear All"
+          data={{
+            from: undefined,
+            to: undefined,
+            text: "Clear All",
+            pid: "clear",
+          }}
           mode="clear"
-          id="clear"
-          callback={nodeCallback}
+          onCancelClicked={onRemoveFilter}
         />
       </div>
     </div>
@@ -210,10 +209,7 @@ export const CustomTabs: React.FC<{
   const nLeft = leftEntries.length;
   // const nRight = rightEntries.length;
 
-  const [tabEntries] = useState([
-    ...leftEntries,
-    ...rightEntries,
-  ]);
+  const [tabEntries] = useState([...leftEntries, ...rightEntries]);
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
   function assignCurrentIndex(value: number) {
@@ -228,7 +224,11 @@ export const CustomTabs: React.FC<{
 
   return (
     <div className="custom-tabs">
-      <div className={`custom-tabs-header ${fitHeader? "custom-tabs-header-fit": ""}`}>
+      <div
+        className={`custom-tabs-header ${
+          fitHeader ? "custom-tabs-header-fit" : ""
+        }`}
+      >
         <div className={`${thinHeader ? "container mx-auto" : ""}`}>
           <div className={`custom-tabs-header-entries`}>
             <div className="left-header-entries">
