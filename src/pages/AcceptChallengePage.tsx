@@ -137,7 +137,7 @@ const CompleteChallenge: React.FC<{
         {/* <div className="target-metrics-holder">
         </div> */}
 
-        <div className="target-metrics">
+        <div className="target-metrics item-glow">
           {/* <div className="goals">Goals</div> */}
           <div className="stack-items-holder">
             <div className="stack-items">
@@ -158,14 +158,14 @@ const CompleteChallenge: React.FC<{
             </div>
           </div>
         </div>
-        <div className="challenge-buttons">
+        <div className="challenge-buttons item-glow">
           <div>
             <p>Click button below to exit challenge. </p>
           </div>
           <div>
             <button
               onClick={() => handleForfietClicked()}
-              className="w-full bg-transparent border border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-white font-semibold py-1 rounded-lg transition duration-300"
+              className="w-full bg-transparent border border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-danger font-semibold py-1 rounded-lg transition duration-300"
             >
               Forfeit Challenge
             </button>

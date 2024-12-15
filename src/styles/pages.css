@@ -1,3 +1,15 @@
+/* #region common */
+
+.challenges-body{
+  background-color: var(--light-color);
+}
+
+.item-glow{
+  box-shadow: 0px 0px 10px 1px var(--white-color);
+}
+
+/* #endregion */
+
 /* #region landing page */
 
 .getting-started-button {
@@ -14,7 +26,7 @@
 }
 
 .background-image {
-  background-image: url("/src/assests/images/keyboard-white.jpg");
+  background-image: url("/src/assests/images/keyboard-white.webp");
   background-position: center;
   background-size: cover;
   width: inherit;
@@ -44,9 +56,37 @@
 
 /* #endregion */
 
-/* #region browse challenges */
 
 /* #region find challenge */
+
+.find-challenges-page-subheader{
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: end;
+}
+
+.find-challenges-page-subheader .item{
+  font-size: 16px;
+  padding: 10px 10px 5px 10px;
+  border-bottom: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+
+.find-challenges-page-subheader .item:hover{
+  color: var(--white-color);
+  background-color: var(--primary-color);
+}
+
+.find-challenges-page-subheader .item span.material-icons{
+  height: fit-content;
+  display: block;
+}
+
 .find-challenges-content {
   display: flex;
   flex-wrap: no-wrap;
@@ -108,8 +148,6 @@
   border: 1px solid var(--medium-color);
   border-radius: 3px;
 }
-/* #endregion */
-
 /* #endregion */
 
 /* #region delete page*/
@@ -182,7 +220,6 @@
   gap: 1.25rem;
   border-radius: 5px;
   background-color: white;
-  box-shadow: 0px 0px 10px 1px var(--white-color);
   padding: 10px 10px;
   flex-grow: 26;
 }
@@ -198,10 +235,8 @@
 
 .challenge-buttons{
   flex: none;
-  /* flex-grow: 1; */
   padding: 20px;
   background-color: white;
-  box-shadow: 0px 0px 10px 1px var(--white-color);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -297,5 +332,84 @@
   /* display: inline-block; */
 }
 /* #endregion */
+
+/* #endregion */
+
+
+/* #region issue challenge */
+.issue-challenge-page{
+  display: block;
+}
+
+.issue-challenge-body{
+  background-color: var(--light-color);
+}
+
+.issue-challenge .stack-items-holder{
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+/* #endregion */
+
+/* #region page not found */
+.page-not-found-body{
+  background-color: var(--light-color);
+}
+
+.not-found-holder{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto;
+  padding: 40px 0;
+}
+
+.not-found-holder .image-holder{
+  width: 40%;
+}
+
+.not-found-holder .text-holder{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+.not-found-holder .text-holder .not-found-text{
+  font-size: 2rem;
+  color: var(--dark-color);
+}
+
+.not-found-holder .text-holder .not-found-button{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.not-found-holder .text-holder .not-found-button:hover{
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  font-weight: bolder;
+  transition: all 0.025s ease-in-out;
+}
+
+.not-found-holder .text-holder .not-found-button .material-icons{
+  display: block;
+}
+
+/* #endregion */
+
+/* #region Region Name  */
 
 /* #endregion */

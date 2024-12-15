@@ -1,0 +1,172 @@
+[
+    {
+      "Challenge": {
+        "date": 2881186235940864,
+        "cost": 7572187468791808,
+        "duration": 2775956722810880,
+        "wpm": 1316455402438656,
+        "earnings": 8108585884057600,
+        "accuracy": 5433638411829248,
+        "consistency": 2086270983471104,
+        "errorcount": 2462770557616128,
+        "challenger_id": "26189ada-b22b-4d72-85f8-90a16d4d0db5",
+        "issuedBy_id": "bf99f39a-108c-4e9f-91b7-d40d90dcfe0a",
+        "id": "f058f732-11d6-4725-a72d-86d307540af6",
+        "state": "live",
+        "isVisibile": true
+      }
+    },
+    {
+      "Challenge": {
+        "date": 1054833243062272,
+        "cost": 7547894959702016,
+        "duration": 2541137006952448,
+        "wpm": 1460941573062656,
+        "earnings": 4964224405078016,
+        "accuracy": 2782519437033472,
+        "consistency": 62889683582976,
+        "errorcount": 3840472728469504,
+        "challenger_id": "90cfacf5-bd49-4d09-97a8-1128d34272e2",
+        "issuedBy_id": "f154890c-f887-424a-a052-bddbbfcc22d5",
+        "id": "38ce314b-e3a9-4b6e-9c6d-b7bd05b7cd6f",
+        "state": "live",
+        "isVisibile": true
+      }
+    },
+    {
+      "Challenge": {
+        "date": 4166263859314688,
+        "cost": 3044824890474496,
+        "duration": 1329962137157632,
+        "wpm": 5748720215785472,
+        "earnings": 775436957122560,
+        "accuracy": 874770289655808,
+        "consistency": 7196811416567808,
+        "errorcount": 1749161527476224,
+        "challenger_id": "0363949e-5195-40ae-89ac-c64095757932",
+        "issuedBy_id": "18e9f089-78e5-44d8-9b8f-acfb7631094d",
+        "id": "130efe40-e1fb-419b-a12c-bdd7daa395a5",
+        "state": "live",
+        "isVisibile": false
+      }
+    },
+    {
+      "Challenge": {
+        "date": 6967815443578880,
+        "cost": 332672620560384,
+        "duration": 7320955841937408,
+        "wpm": 6583741612818432,
+        "earnings": 1787345099554816,
+        "accuracy": 8058001531338752,
+        "consistency": 170672261169152,
+        "errorcount": 1485123096674304,
+        "challenger_id": "940fe529-95a0-4d7a-9864-12faad9ca71b",
+        "issuedBy_id": "341aff71-b729-4999-be84-31d3e6282647",
+        "id": "3f3da1ae-d3f2-4860-bb89-56095717eda1",
+        "state": "live",
+        "isVisibile": false
+      }
+    },
+    {
+      "Challenge": {
+        "date": 6940400082223104,
+        "cost": 5608927525863424,
+        "duration": 5587522769911808,
+        "wpm": 5656330322837504,
+        "earnings": 3175963925938176,
+        "accuracy": 540179423035392,
+        "consistency": 6390353189928960,
+        "errorcount": 5481901145980928,
+        "challenger_id": "a0522c53-d9ae-4d40-b200-f5249995142c",
+        "issuedBy_id": "52366713-5b3c-419d-b360-b1fff5eb01c6",
+        "id": "ac3a7c0e-863a-4a75-bd17-56ec03e461d9",
+        "state": "live",
+        "isVisibile": false
+      }
+    },
+    {
+      "Challenge": {
+        "date": 8192397928300544,
+        "cost": 8863237703467008,
+        "duration": 6068570094043136,
+        "wpm": 745049719570432,
+        "earnings": 4907169266794496,
+        "accuracy": 3035004120596480,
+        "consistency": 3025405114056704,
+        "errorcount": 4234897103257600,
+        "challenger_id": "751ff28e-1bc2-4bca-9ebc-6485baddd4a9",
+        "issuedBy_id": "154855cd-d513-495e-86c2-07cc8bb1d21c",
+        "id": "d7abb7b7-5ac3-4172-a328-2e741cb04137",
+        "state": "live",
+        "isVisibile": false
+      }
+    },
+    {
+      "Challenge": {
+        "date": 5730582422093824,
+        "cost": 8541720232853504,
+        "duration": 2506457593413632,
+        "wpm": 7445513005694976,
+        "earnings": 5613945385648128,
+        "accuracy": 8238338829975552,
+        "consistency": 6120231682441216,
+        "errorcount": 7604951576477696,
+        "challenger_id": "963241bc-39e8-4b34-994f-8fadb4f8175f",
+        "issuedBy_id": "ce3906d1-dcec-42bc-8877-478024d4681a",
+        "id": "2a2b1372-7890-41c9-b609-f036e156cd2e",
+        "state": "live",
+        "isVisibile": true
+      }
+    },
+    {
+      "Challenge": {
+        "date": 4002961816551424,
+        "cost": 3920674202583040,
+        "duration": 964157906092032,
+        "wpm": 5101549359464448,
+        "earnings": 6029341894901760,
+        "accuracy": 7883509473476608,
+        "consistency": 2565377848508416,
+        "errorcount": 6622267024867328,
+        "challenger_id": "610089b0-0d7f-4049-893d-0323e70795e6",
+        "issuedBy_id": "57b1a268-3aeb-4822-bd1d-2eb6a8fb746e",
+        "id": "a5cb6563-8e6e-4ba2-ae7e-25287bf61ba7",
+        "state": "live",
+        "isVisibile": false
+      }
+    },
+    {
+      "Challenge": {
+        "date": 3510473630679040,
+        "cost": 6025269005516800,
+        "duration": 5580061889527808,
+        "wpm": 6136611941122048,
+        "earnings": 5332542741807104,
+        "accuracy": 2119087295561728,
+        "consistency": 1291988825538560,
+        "errorcount": 638251698225152,
+        "challenger_id": "3dff1b50-485a-489d-b394-1797e8ba26ea",
+        "issuedBy_id": "c6906b81-6b41-4fa4-87cc-bd24d93108b9",
+        "id": "e8d38a87-f0b0-4033-922c-7869f5aad98f",
+        "state": "live",
+        "isVisibile": true
+      }
+    },
+    {
+      "Challenge": {
+        "date": 8612818047729664,
+        "cost": 5439203496165376,
+        "duration": 8096102150569984,
+        "wpm": 1307414479503360,
+        "earnings": 711758889091072,
+        "accuracy": 7703945455599616,
+        "consistency": 2871092733542400,
+        "errorcount": 3899882404315136,
+        "challenger_id": "5b5954cb-8c54-4041-bc58-d6325ac53756",
+        "issuedBy_id": "c40d16d6-8f72-4961-833b-b3e8c20ff17b",
+        "id": "7fe87fc1-5258-4702-8ed3-e69170234615",
+        "state": "live",
+        "isVisibile": true
+      }
+    }
+  ]

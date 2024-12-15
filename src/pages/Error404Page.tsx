@@ -1,44 +1,39 @@
-import React, { useState } from "react";
-import { AlertDialog} from "../components/dialog";
+import React from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import LOCAL_IMAGES from "../core/images";
+import { useNavigate } from "react-router-dom";
+import { APP_ROUTES } from "../core/routes";
 
 const Error404Page: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  let navigate = useNavigate()
 
-  function handleClose() {
-    setIsOpen(false);
+  function handleBtnClicked() {
+    navigate(APP_ROUTES['home'].url)
   }
 
-  let msg =
-    "Lorem ipsum ab ipsa aliquam quibusdam dicta optio, animi non architecto, eveniet iusto!";
-
   return (
-    <div className="w-full h-screen">
-      <div>
-        {isOpen && (
-          <AlertDialog
-            onClose={handleClose}
-            onConfirm={handleClose}
-            open={isOpen}
-            title="Sample Title"
-            message={msg}
-            color="primary"
-            children={<div>simple child</div>}
-          />
-        )}
+    <div className="w-full h-screen not-found-page">
+      <Header />
+      <div className="page-not-found-body">
+        <div className="container mx-auto">
+          <div className="not-found-holder">
+            <div className="image-holder">
+              <img src={LOCAL_IMAGES.notFound} alt="page not found" />
+            </div>
+            <div className="text-holder">
+              <div className="not-found-text">Page Not Found</div>
+              <button className="not-found-button" onClick={()=>handleBtnClicked()}>
+                <div>
+                  <span className="material-icons">arrow_back</span>
+                </div>
+                <div>Browse Challenges</div>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div>
-        <button onClick={() => setIsOpen(true)}>basic dialog</button>
-      </div>
-      {/* <div>
-        <button>basic dialog</button>
-      </div>
-      <div>
-        <button>alert dialog</button>
-      </div>
-      <div>
-        <button>confirm dialog</button>
-      </div> */}
+      <Footer />
     </div>
   );
 };

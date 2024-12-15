@@ -1,9 +1,9 @@
 export interface User {
-    id: string,
-    username: string,
-    email: string,
-    paylink: string,
-    paypalEmail?: string,
+    id: string;
+    username: string;
+    email: string;
+    paylink: string;
+    paypalEmail?: string;
 }
 
 export type ChallengeState = "live" | "neutral" | "completed" | "flagged"
@@ -20,6 +20,19 @@ export interface Challenge {
     challenger_id: string;
     issuedBy_id: string;
     id: string;
-    state: ChallengeState;
+    state: string;
     isVisibile: boolean;
+}
+
+export interface ChallengeOption {
+    tag: string;
+    title: string | number;
+    description?: string;
+}
+
+
+export interface OperationSettings {
+    minChallengeCost: number;
+    maxChallengeCost: number;
+    currency: string;
 }
