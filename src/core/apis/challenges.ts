@@ -74,3 +74,17 @@ export function deleteChallenge(cid: string): Promise<Challenge> {
         }
     })
 }
+
+
+export function issueChallenge(c: Challenge): Promise<Challenge>{
+    return new Promise((resolve, reject)=>{
+        try {
+            
+            // REQUIRED APIS TO ISSUE A CHALLENGE
+            resolve(SAMPLE_CHALLENGES[0])
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

@@ -12,20 +12,66 @@ import {
   CardSubTitle,
 } from "../components/Singletons";
 import {
-  LANGUAUGE_CHALLENGE_OPTIONS,
   DEFAULT_CHALLENGE,
+  DEFAULT_INLINE_ALERT,
+  DEFAULT_OPERATION_SETTINGS,
+  LANGUAUGE_CHALLENGE_OPTIONS,
   TEXT_TYPE_CHALLENGE_OPTIONS,
   TIME_CHALLENGE_OPTIONS,
 } from "../core/utils/variables";
 import CustomSelect from "../components/CustomSelect";
 import FindChallengeCard from "../components/FindChallengeCard";
+import { InlineAlert } from "../components/dialog";
+import { InlineAlertOptions } from "../core/interfaces/components";
+import { issueChallenge } from "../core/apis/challenges";
+import { APP_ROUTES } from "../core/routes";
+import { useNavigate } from "react-router-dom";
 
 const ConfigureChallenge: React.FC<{
   challenge: Challenge;
+  onChallengeChanged: (c: Challenge) => any;
   onComplete: (c: Challenge) => any;
-}> = ({ challenge, onComplete }) => {
-  function handleCustomItemChanged(key: string, option: ChallengeOption) {}
+}> = ({ challenge, onComplete, onChallengeChanged }) => {
+  const [optionIndex, setOptionsIndex] = useState({
+    time: 0,
+    language: 0,
+    type: 0,
+  });
 
+  function handleCustomItemChanged(key: string, option: ChallengeOption) {
+    let c = { ...challenge };
+    let optIdx = { ...optionIndex };
+
+    switch (key) {
+      case "language":
+        c.language = option.tag as string;
+        optIdx.language = option.index;
+        break;
+
+      case "time":
+        c.duration = option.tag as number;
+        optIdx.time = option.index;
+        break;
+
+      case "type":
+        c.characters = option.tag as string;
+        optIdx.type = option.index;
+        break;
+
+      default:
+        break;
+    }
+
+    onChallengeChanged(c);
+    setOptionsIndex(optIdx);
+  }
+
+  // useEffect(()=>{
+  //   setOptionsIndex({
+
+  //   })
+
+  // }, [challenge])
   return (
     <div className="configure-challenge">
       <div className="complete-challenge-header issue-challenge">
@@ -36,15 +82,15 @@ const ConfigureChallenge: React.FC<{
               <CustomSelect
                 options={LANGUAUGE_CHALLENGE_OPTIONS}
                 label="Language"
-                currentOption={0}
-                onChange={(opt) => handleCustomItemChanged("lang", opt)}
+                currentOption={optionIndex.language}
+                onChange={(opt) => handleCustomItemChanged("language", opt)}
               />
             </div>
             <div className="stack-items">
               <CustomSelect
                 options={TIME_CHALLENGE_OPTIONS}
                 label="Time"
-                currentOption={0}
+                currentOption={optionIndex.time}
                 onChange={(opt) => handleCustomItemChanged("time", opt)}
               />
             </div>
@@ -52,8 +98,8 @@ const ConfigureChallenge: React.FC<{
               <CustomSelect
                 options={TEXT_TYPE_CHALLENGE_OPTIONS}
                 label="Type"
-                currentOption={0}
-                onChange={(opt) => handleCustomItemChanged("text_type", opt)}
+                currentOption={optionIndex.type}
+                onChange={(opt) => handleCustomItemChanged("type", opt)}
               />
             </div>
           </div>
@@ -87,8 +133,14 @@ const ConfigureChallenge: React.FC<{
 const CreateChallenge: React.FC<{
   challenge: Challenge;
   onPaymentComplete: Function;
+  onChallengeChanged: (c: Challenge) => any;
   onRetakeChallenge: (c: Challenge) => any;
-}> = ({ challenge, onPaymentComplete, onRetakeChallenge }) => {
+}> = ({
+  challenge,
+  onPaymentComplete,
+  onRetakeChallenge,
+  onChallengeChanged,
+}) => {
   function processPayment() {
     onPaymentComplete();
   }
@@ -97,13 +149,24 @@ const CreateChallenge: React.FC<{
     onRetakeChallenge(challenge);
   }
 
+  function handleCostChanged(value: string) {
+    let cost = parseFloat(value);
+    if (isNaN(cost)) return;
+
+    let c = { ...challenge };
+    c.cost = cost;
+    c.earnings = DEFAULT_OPERATION_SETTINGS.earningsMultiplier * cost;
+
+    onChallengeChanged(c);
+  }
+
   return (
     <div className="release-challenge delete-challenge-body">
       <div className="left-pane">
         <div className="left-pane-content">
           <FindChallengeCard
             showActionBtn={false}
-            challenge={DEFAULT_CHALLENGE}
+            challenge={challenge}
             view="delete"
             btnClickedCallback={() => {}}
           />
@@ -142,9 +205,10 @@ const CreateChallenge: React.FC<{
                     Challenge Cost <span className="text-red-500">*</span>
                   </label>
                   <input
-                    type="email"
+                    type="number"
                     id="challenge-cost"
                     placeholder="e.g 200.23"
+                    onChange={(e) => handleCostChanged(e.target.value)}
                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                 </div>
@@ -219,26 +283,81 @@ const CreateChallenge: React.FC<{
 };
 
 const IssueChallengePage: React.FC = () => {
-  const [challenge, setChallenge] = useState(DEFAULT_CHALLENGE);
+  const [challenge, setChallenge] = useState<Challenge>(DEFAULT_CHALLENGE);
   const [tabIndex, setTabIndex] = useState(0);
+  const [inlineAlertOpts, setInlineAlertOpts] = useState<InlineAlertOptions>(DEFAULT_INLINE_ALERT);
+  const navigate = useNavigate()
 
-  function onConfigComplete(c: Challenge) {
-    setTabIndex(1);
-  }
+  // #region event handlers
 
   function onPaymentComplete() {
-    return;
+    issueChallenge(challenge)
+      .then((c) => {
+        // show the alert
+        setInlineAlertOpts({
+          color: "success",
+          text: "Challenge issued. Returning to main view in 3 seconds",
+          open: true,
+        });
+
+        const timeout = setTimeout(()=>{
+          navigate(APP_ROUTES['browse'].url)
+        }, 3000)
+
+        return () => clearTimeout(timeout)
+      })
+      .catch((error) => {
+        // log the error
+        console.error(error);
+
+        // show the alert
+        setInlineAlertOpts({
+          color: "danger",
+          text: "Failed to issue challenge",
+          open: true,
+        });
+      });
   }
 
   function onRetakeChallenge(c: Challenge) {
+    setChallenge(c);
     setTabIndex(0);
   }
+
+  function onConfigComplete(c: Challenge) {
+    setChallenge(c);
+    setTabIndex(1);
+  }
+
+  function onChallengeChanged(c: Challenge) {
+    setChallenge(c);
+  }
+
+  // #endregion
+
+  // #region hooks
+
+  // #endregion
 
   return (
     <div className="issue-challenge-page h-screen w-full">
       <Header />
       <div className="issue-challenge-body">
         <div className="container mx-auto">
+          {inlineAlertOpts.open && (
+            <div className="pt-3">
+              <InlineAlert
+                color={inlineAlertOpts.color}
+                open={inlineAlertOpts.open}
+                onClose={() => {
+                  setInlineAlertOpts({ ...inlineAlertOpts, open: false });
+                }}
+                text={inlineAlertOpts.text}
+                timeout={2500}
+              />
+            </div>
+          )}
+
           <div className="pt-3">
             <CustomTabs
               leftEntries={[
@@ -248,6 +367,7 @@ const IssueChallengePage: React.FC = () => {
                     <ConfigureChallenge
                       challenge={challenge}
                       onComplete={onConfigComplete}
+                      onChallengeChanged={onChallengeChanged}
                     />
                   ),
                 },
@@ -258,6 +378,7 @@ const IssueChallengePage: React.FC = () => {
                       challenge={challenge}
                       onPaymentComplete={onPaymentComplete}
                       onRetakeChallenge={onRetakeChallenge}
+                      onChallengeChanged={onChallengeChanged}
                     />
                   ),
                 },

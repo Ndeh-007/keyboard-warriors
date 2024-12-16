@@ -10,6 +10,8 @@ export interface User {
 
 export type ChallengeState = "live" | "neutral" | "completed" | "flagged"
 
+export type ChallengeType = "number" | "text" | "punctuation"
+
 export interface Challenge {
     date: number;
     cost: number;
@@ -24,12 +26,15 @@ export interface Challenge {
     id: string;
     state: string;
     isVisibile: boolean;
+    language: string;
+    characters: string
 }
 
 export interface ChallengeOption {
-    tag: string;
+    tag: number | string;
     title: string | number;
     description?: string;
+    index: number;
 }
 
 
@@ -38,6 +43,7 @@ export interface OperationSettings {
     maxChallengeCost: number;
     currency: string;
     refundPercent: number;
+    earningsMultiplier: number
 }
 
 export interface FetchChallengeOptions{
