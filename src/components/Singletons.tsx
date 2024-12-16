@@ -69,13 +69,6 @@ export const FromToFilterEntry: React.FC<FromToFilterGroup> = ({
     setEntries(opts);
   }
 
-  function clearEntries() {
-    let e = { ...entries };
-    e.from = undefined;
-    e.to = undefined;
-    setEntries(e);
-  }
-
   return (
     <Accordion title={title}>
       <div>

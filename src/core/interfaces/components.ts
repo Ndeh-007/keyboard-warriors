@@ -51,3 +51,9 @@ export interface DialogProps {
         confirm: string,
     },
 }
+
+export interface InlineAlertOptions {
+    color: "primary" | "success" | "danger" | "warning",
+    text: string,
+    open: boolean
+}

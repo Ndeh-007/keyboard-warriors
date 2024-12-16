@@ -1,4 +1,4 @@
-import { FromToFilterGroup } from "../interfaces/components";
+import { FromToFilterGroup, InlineAlertOptions } from "../interfaces/components";
 import { Challenge, ChallengeOption, OperationSettings, User } from "../interfaces/data";
 import UsersJSON from "../data/mock_users.json"
 import ChallengesJSON from "../data/challenges.json"
@@ -18,10 +18,11 @@ export const SAMPLE_CHALLENGES: Challenge[] = ChallengesJSON.map((item) => {
     return c
 })
 
-export const SAMPLE_OPERATION_SETTINGS: OperationSettings = {
+export const DEFAULT_OPERATION_SETTINGS: OperationSettings = {
     minChallengeCost: 10,
     maxChallengeCost: 10,
-    currency: "CAD"
+    currency: "CAD",
+    refundPercent: 50,
 }
 
 export const SAMPLE_USER: User = {
@@ -126,3 +127,8 @@ export const TEXT_TYPE_CHALLENGE_OPTIONS: ChallengeOption[] = [
     },
 ]
 
+export const DEFAULT_INLINE_ALERT: InlineAlertOptions = {
+    text: "",
+    color: "primary",
+    open: false
+}

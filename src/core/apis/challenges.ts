@@ -54,3 +54,23 @@ export function fetchChallenge(cid: string): Promise<Challenge> {
         }
     })
 }
+
+export function deleteChallenge(cid: string): Promise<Challenge> {
+    return new Promise((resolve, reject) => {
+
+        try {
+
+            // when the db is connected, challange will be deleted directly from there
+
+            let chs = SAMPLE_CHALLENGES.filter((c) => c.id === cid)
+
+            if (chs.length === 0) throw new Error(`Challenge with id <${cid}> does not exist`)
+
+            // delete this challenge from all required pools.
+            resolve(chs[0])
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

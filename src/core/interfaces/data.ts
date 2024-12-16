@@ -37,6 +37,7 @@ export interface OperationSettings {
     minChallengeCost: number;
     maxChallengeCost: number;
     currency: string;
+    refundPercent: number;
 }
 
 export interface FetchChallengeOptions{

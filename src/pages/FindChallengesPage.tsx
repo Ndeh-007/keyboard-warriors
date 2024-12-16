@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Challenge } from "../core/interfaces/data";
-import { FROM_TO_GROUPS, SAMPLE_CHALLENGES } from "../core/utils/variables";
+import { FROM_TO_GROUPS } from "../core/utils/variables";
 import {
   Accordion,
   FilterBar,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FindChallengeCard from "../components/FindChallengeCard";
-import { DEFAULT_CHALLENGE, SAMPLE_USER } from "../core/utils/variables";
+import { SAMPLE_USER } from "../core/utils/variables";
 import {
   Card,
   CardBody,
