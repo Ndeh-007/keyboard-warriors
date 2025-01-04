@@ -25,7 +25,7 @@ export interface FromToFilterData {
     text?: string
 }
 
-export interface FromToFilterBar{
+export interface FromToFilterBar {
     id: string,
     value: string
 }
@@ -56,4 +56,12 @@ export interface InlineAlertOptions {
     color: "primary" | "success" | "danger" | "warning",
     text: string,
     open: boolean
+}
+
+export interface TypingTestConfig {
+    cursor: number,
+    currentWordIndex: number,
+    correctWords: number,
+    wrongWords: number,
+    typedHistory: string[][],
 }

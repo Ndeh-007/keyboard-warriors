@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FindChallengeCard from "../components/FindChallengeCard";
-import { SAMPLE_USER } from "../core/utils/variables";
+import { DEFAULT_WORDS, SAMPLE_USER } from "../core/utils/variables";
 import {
   Card,
   CardBody,
@@ -18,6 +18,7 @@ import { AlertDialog, InlineAlert } from "../components/dialog";
 import { APP_ROUTES } from "../core/routes";
 import { ChallengeResultsState } from "../core/interfaces/components";
 import { fetchChallenge } from "../core/apis/challenges";
+import TypingTest from "../components/TypingTest";
 
 const MakePayment: React.FC<{
   challenge?: Challenge;
@@ -177,7 +178,13 @@ const CompleteChallenge: React.FC<{
         </div>
       </div>
       <div className="complete-challenge-body">
-        <div className="h-20"></div>
+        <div className="test-holder item-glow">
+          <TypingTest
+            onTestComplete={() => {}}
+            text={DEFAULT_WORDS}
+            challenge={challenge}
+          />
+        </div>
       </div>
       <div className="complete-challenge-footer"></div>
     </div>
@@ -403,6 +410,7 @@ const AcceptChallengePage: React.FC = () => {
             "You can begin the challenge. Metrics will start recording when you commence typing. Confirm the dialog to begin."
           }
           color="primary"
+          buttons={{cancel: "Begin Challenge", confirm: "Confirm"}}
         />
       )}
     </div>

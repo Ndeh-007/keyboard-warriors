@@ -246,6 +246,12 @@
 .complete-challenge-body{
   display: block;
 }
+.complete-challenge-body .test-holder{
+  padding: 20px;
+  background-color: white;
+  width: inherit;
+  border-radius: 5px;
+}
 
 .complete-challenge-footer{
   display: block;

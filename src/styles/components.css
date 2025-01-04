@@ -18,7 +18,7 @@
   color: var(--primary-color);
 }
 
-.sub-header{
+.sub-header {
   background-color: var(--white-color);
 }
 
@@ -327,7 +327,7 @@
   width: 100%;
 }
 
-.custom-tabs-header-fit{
+.custom-tabs-header-fit {
   width: fit-content;
 }
 
@@ -373,7 +373,7 @@
   flex-wrap: wrap;
 }
 
-.custom-tabs-body{
+.custom-tabs-body {
   width: 90%;
 }
 
@@ -471,7 +471,7 @@ dialog::backdrop {
   border-bottom: 1px solid var(--light-color);
 }
 
-.dialog-title{
+.dialog-title {
   font-weight: 600;
   font-size: 1.5rem;
 }
@@ -517,52 +517,50 @@ dialog::backdrop {
 /* #endregion */
 
 /* #region Confrim Dialog  */
-.confirm-dialog-body{
+.confirm-dialog-body {
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.confirm-dialog .dialog-title{
+.confirm-dialog .dialog-title {
   font-size: 1.3rem;
   font-weight: 600px;
 }
 
-.dialog-message{
+.dialog-message {
   font-weight: 400px;
 }
 /* #endregion */
 
-
 /* #region Alert Dialog  */
 
-.alert-dialog .dialog-header.dialog-title{
+.alert-dialog .dialog-header.dialog-title {
   font-size: 0.8rem;
 }
 
-.alert-dialog .dialog-header.dialog-header-primary{
+.alert-dialog .dialog-header.dialog-header-primary {
   color: var(--light-color);
   background-color: var(--primary-color);
 }
 
-.alert-dialog .dialog-header.dialog-header-warning{
+.alert-dialog .dialog-header.dialog-header-warning {
   color: var(--dark-color);
   background-color: var(--warning-color);
 }
 
-.alert-dialog .dialog-header.dialog-header-danger{
+.alert-dialog .dialog-header.dialog-header-danger {
   color: var(--light-color);
   background-color: var(--danger-color);
 }
 
-
-.alert-dialog .dialog-header.dialog-header-success{
+.alert-dialog .dialog-header.dialog-header-success {
   color: var(--light-color);
   background-color: var(--success-color);
 }
 
-.alert-dialog .dialog-footer .dialog-footer-buttons .footer-cancel{
+.alert-dialog .dialog-footer .dialog-footer-buttons .footer-cancel {
   background-color: var(--dark-color);
   color: var(--light-color);
   border: none;
@@ -574,7 +572,7 @@ dialog::backdrop {
 
 /* #region Card  */
 
-.custom-card{
+.custom-card {
   width: fit-content;
   border-radius: 10px;
   display: flex;
@@ -584,23 +582,23 @@ dialog::backdrop {
   box-shadow: 0px 0px 5px 1px white;
 }
 
-.custom-card-header{
+.custom-card-header {
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.custom-card-header-border{
+.custom-card-header-border {
   border-bottom: 1px solid #f2f3f7;
 }
 
-.custom-card-title{
+.custom-card-title {
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.custom-card-subtitle{
+.custom-card-subtitle {
   font-size: 1.1rem;
   color: var(--medium-color);
   font-weight: 400;
@@ -616,18 +614,18 @@ dialog::backdrop {
   border-bottom: 1px solid #f2f3f7;
 }
 
-.custom-card-body.custom-card-body-text{
+.custom-card-body.custom-card-body-text {
   font-weight: 400;
 }
 
-.custom-card-footer{
+.custom-card-footer {
   padding: 20px 20px;
 }
 /* #endregion */
 
 /* #region Ads  */
 
-.adspace{
+.adspace {
   height: 100px;
   width: 100%;
 }
@@ -636,12 +634,12 @@ dialog::backdrop {
 
 /* #region custom select */
 
-.custom-select{
+.custom-select {
   position: relative;
   min-width: 15rem;
 }
 
-.custom-select-label{
+.custom-select-label {
   display: block;
   margin-bottom: 5px;
   font-size: small;
@@ -650,7 +648,7 @@ dialog::backdrop {
   text-align: start;
 }
 
-.custom-select-dropdown{
+.custom-select-dropdown {
   cursor: pointer;
   border: 1px solid var(--medium-color);
   border-radius: 5px;
@@ -661,11 +659,11 @@ dialog::backdrop {
   align-items: start;
 }
 
-.custom-select-dropdown .dropdown-item{
+.custom-select-dropdown .dropdown-item {
   color: var(--medium-color);
 }
 
-.custom-select-dropdown-display{
+.custom-select-dropdown-display {
   position: absolute;
   margin-top: 10px;
   background-color: var(--white-color);
@@ -676,19 +674,116 @@ dialog::backdrop {
   width: 100%;
 }
 
-.custom-select-dropdown-display-item{
+.custom-select-dropdown-display-item {
   cursor: pointer;
   padding: 8px 10px;
   border-bottom: 0.4px solid var(--light-color);
   text-align: start;
 }
 
-.custom-select-dropdown-display-item:last-child{
+.custom-select-dropdown-display-item:last-child {
   border-bottom: none;
 }
 
-.custom-select-dropdown-display-item:hover{
+.custom-select-dropdown-display-item:hover {
   background-color: var(--light-color);
+}
+
+/* #endregion */
+
+/* #region Region Typing Test  */
+.typing-test {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.typing-test .action-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.typing-test .action-bar .preview-word {
+  padding: 5px;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.typing-test .action-bar .control {
+  color: var(--medium-color);
+  font-weight: 500;
+}
+
+.typing-test .action-bar .control .chip {
+  color: var(--light-color);
+  background-color: var(--medium-color);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.typing-test span.time-left {
+  font-weight: bold;
+  font-size: larger;
+  color: var(--primary-color);
+  border-radius: 5px;
+  background-color: var(--light-color);
+  padding: 5px;
+}
+
+.typing-test .text-holder {
+  display: block;
+  padding: 5px 0px;
+}
+
+.typing-test .text-holder .words {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.typing-test .text-holder .word {
+  font-weight: bolder;
+  font-size: xx-large;
+  color: var(--medium-color);
+  margin: 5px;
+}
+
+.word .unset-char {
+  color: var(--medium-color);
+}
+
+.word .valid-char {
+  color: var(--success-color);
+}
+
+.word .error-char {
+  color: var(--danger-color);
+}
+
+.word .extra-char {
+  color: var(--warning-color);
+}
+
+.caret{
+  color: var(--primary-color);
+  position: relative;
+  transition: left 0.1s ease;
+  margin-left: -10px ;
+  font-weight: lighter;
+}
+
+.blink{
+  animation: blink 1.5s infinite 1s;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0;
+  }
 }
 
 /* #endregion */
@@ -696,4 +791,3 @@ dialog::backdrop {
 /* #region Region Name  */
 
 /* #endregion */
-

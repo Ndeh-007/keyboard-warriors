@@ -1,4 +1,4 @@
-import { FromToFilterGroup, InlineAlertOptions } from "../interfaces/components";
+import { FromToFilterGroup, InlineAlertOptions, TypingTestConfig } from "../interfaces/components";
 import { Challenge, ChallengeOption, OperationSettings, User } from "../interfaces/data";
 import UsersJSON from "../data/mock_users.json"
 import ChallengesJSON from "../data/challenges.json"
@@ -142,3 +142,20 @@ export const DEFAULT_INLINE_ALERT: InlineAlertOptions = {
     color: "primary",
     open: false
 }
+
+export const DEFAULT_TYPING_CONFIG: TypingTestConfig = {
+    cursor: 0,
+    currentWordIndex: 0,
+    correctWords: 0,
+    wrongWords: 0,
+    typedHistory: [],
+}
+
+
+export const DEFAULT_WORDS =
+  "child into might one world real how day any more day state want be now home life good into who tell for in many state help head world need word write down world state problem for take into might one world real how day any more day state want be now home life good into who tell for in many state help head world need word write down world state problem for take into might one world real how day any more day state want be now home life good into who tell for in many state help head world need word write down world state problem for take by at from also without become write run eye life".split(" ");
+
+
+export const DEFAULT_INVALID_CHAR = "*"
+
+export const ACCEPT_INSTRUCTIONS = ""
