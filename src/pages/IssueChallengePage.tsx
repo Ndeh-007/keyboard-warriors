@@ -26,12 +26,14 @@ import { InlineAlertOptions } from "../core/interfaces/components";
 import { issueChallenge } from "../core/apis/challenges";
 import { APP_ROUTES } from "../core/routes";
 import { useNavigate } from "react-router-dom";
+import TypingTest from "../components/TypingTest";
 
 const ConfigureChallenge: React.FC<{
   challenge: Challenge;
   onChallengeChanged: (c: Challenge) => any;
   onComplete: (c: Challenge) => any;
-}> = ({ challenge, onComplete, onChallengeChanged }) => {
+  words:string[]
+}> = ({ challenge, onComplete, onChallengeChanged, words }) => {
   const [optionIndex, setOptionsIndex] = useState({
     time: 0,
     language: 0,
@@ -75,7 +77,7 @@ const ConfigureChallenge: React.FC<{
   return (
     <div className="configure-challenge">
       <div className="complete-challenge-header issue-challenge">
-        <div className="target-metrics item-glow">
+        <div className="challenge-metrics item-glow">
           {/* <div className="goals">Goals</div> */}
           <div className="stack-items-holder">
             <div className="stack-items">
@@ -123,7 +125,9 @@ const ConfigureChallenge: React.FC<{
         </div>
       </div>
       <div className="complete-challenge-body">
-        <div className="h-20"></div>
+        <div className="test-holder item-glow my-3">
+          <TypingTest onTestComplete={()=>{}} text={words} challenge={challenge} />
+        </div>
       </div>
       <div className="complete-challenge-footer"></div>
     </div>
@@ -286,6 +290,7 @@ const IssueChallengePage: React.FC = () => {
   const [challenge, setChallenge] = useState<Challenge>(DEFAULT_CHALLENGE);
   const [tabIndex, setTabIndex] = useState(0);
   const [inlineAlertOpts, setInlineAlertOpts] = useState<InlineAlertOptions>(DEFAULT_INLINE_ALERT);
+  const [words, setWords] = useState<string[]>([]) 
   const navigate = useNavigate()
 
   // #region event handlers
@@ -368,6 +373,7 @@ const IssueChallengePage: React.FC = () => {
                       challenge={challenge}
                       onComplete={onConfigComplete}
                       onChallengeChanged={onChallengeChanged}
+                      words={words}
                     />
                   ),
                 },

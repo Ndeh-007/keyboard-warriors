@@ -65,3 +65,11 @@ export interface TypingTestConfig {
     wrongWords: number,
     typedHistory: string[][],
 }
+
+export interface AlertConfig {
+    isOpen: boolean,
+    text: string,
+    color: "primary" | "danger" | "success" | "warning",
+    onClose?: (opts?: any) => {},
+    duration?: number, 
+}

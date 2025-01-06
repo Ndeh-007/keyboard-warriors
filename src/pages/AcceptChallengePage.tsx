@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FindChallengeCard from "../components/FindChallengeCard";
-import { DEFAULT_WORDS, SAMPLE_USER } from "../core/utils/variables";
+import {
+  DEFAULT_ALERT_OPTIONS,
+  DEFAULT_WORDS,
+  SAMPLE_USER,
+} from "../core/utils/variables";
 import {
   Card,
   CardBody,
@@ -16,7 +20,10 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { Challenge, User } from "../core/interfaces/data";
 import { AlertDialog, InlineAlert } from "../components/dialog";
 import { APP_ROUTES } from "../core/routes";
-import { ChallengeResultsState } from "../core/interfaces/components";
+import {
+  AlertConfig,
+  ChallengeResultsState,
+} from "../core/interfaces/components";
 import { fetchChallenge } from "../core/apis/challenges";
 import TypingTest from "../components/TypingTest";
 
@@ -131,46 +138,42 @@ const MakePayment: React.FC<{
 const CompleteChallenge: React.FC<{
   challenge?: Challenge;
   onChallengeComplete: Function;
-}> = ({ challenge, onChallengeComplete }) => {
+  words: string[];
+}> = ({ challenge, onChallengeComplete, words }) => {
+  const [alertOpts, setAlertOpts] = useState<AlertConfig>(
+    DEFAULT_ALERT_OPTIONS
+  );
+
   function handleForfietClicked() {
     onChallengeComplete(challenge);
+  }
+
+  function toggleAlert() {
+    setAlertOpts((prev) => ({
+      ...prev,
+      isOpen: !prev.isOpen,
+    }));
   }
 
   return (
     <div className="complete-challenge">
       <div className="complete-challenge-header">
-        {/* <div className="target-metrics-holder">
-        </div> */}
-
-        <div className="target-metrics item-glow">
-          {/* <div className="goals">Goals</div> */}
-          <div className="stack-items-holder">
-            <div className="stack-items">
-              <div className="top-item">WPM</div>
-              <div className="bottom-item">{challenge?.wpm}</div>
-            </div>
-            <div className="stack-items">
-              <div className="top-item">Acc(%)</div>
-              <div className="bottom-item">{challenge?.accuracy}</div>
-            </div>
-            <div className="stack-items">
-              <div className="top-item">Time(s)</div>
-              <div className="bottom-item">{challenge?.duration}</div>
-            </div>
-            <div className="stack-items">
-              <div className="top-item">Consistency(%)</div>
-              <div className="bottom-item">{challenge?.consistency}</div>
-            </div>
-          </div>
+        <div className="challenge-metrics">
+          {alertOpts.isOpen && (
+            <InlineAlert
+              open={alertOpts.isOpen}
+              color={alertOpts.color}
+              onClose={() => toggleAlert()}
+              timeout={alertOpts.duration}
+              text={alertOpts.text}
+            />
+          )}
         </div>
-        <div className="challenge-buttons item-glow">
-          <div>
-            <p>Click button below to exit challenge. </p>
-          </div>
+        <div className="challenge-buttons">
           <div>
             <button
               onClick={() => handleForfietClicked()}
-              className="w-full bg-transparent border border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-danger font-semibold py-1 rounded-lg transition duration-300"
+              className="w-full bg-red-500 border border-red-500 text-white hover:bg-red-700 hover:text-white text-danger font-semibold p-2 rounded-lg transition duration-300"
             >
               Forfeit Challenge
             </button>
@@ -181,7 +184,7 @@ const CompleteChallenge: React.FC<{
         <div className="test-holder item-glow">
           <TypingTest
             onTestComplete={() => {}}
-            text={DEFAULT_WORDS}
+            text={words}
             challenge={challenge}
           />
         </div>
@@ -288,7 +291,8 @@ const AcceptChallengePage: React.FC = () => {
 
   const [tabIndex, setTabIndex] = useState(0);
   const [challenge, setChallenge] = useState<Challenge>();
-  const [user] = useState<User>(SAMPLE_USER);
+  const [user, setUser] = useState<User>(SAMPLE_USER);
+  const [words, setWords] = useState<string[]>([]);
 
   const [beginChallengeAlert, setBeginChallengeAlert] = useState(false);
   const [challengeNotFound, setChallengeNotFound] = useState(false);
@@ -375,6 +379,7 @@ const AcceptChallengePage: React.FC = () => {
                     <CompleteChallenge
                       challenge={challenge}
                       onChallengeComplete={handleChallengeComplete}
+                      words={words}
                     />
                   ),
                 },
@@ -410,7 +415,7 @@ const AcceptChallengePage: React.FC = () => {
             "You can begin the challenge. Metrics will start recording when you commence typing. Confirm the dialog to begin."
           }
           color="primary"
-          buttons={{cancel: "Begin Challenge", confirm: "Confirm"}}
+          buttons={{ cancel: "Begin Challenge", confirm: "Confirm" }}
         />
       )}
     </div>

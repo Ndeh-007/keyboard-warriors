@@ -213,30 +213,30 @@
   align-items: stretch;
 }
 
-.target-metrics{
+.challenge-metrics{
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
   gap: 1.25rem;
   border-radius: 5px;
-  background-color: white;
+  background-color: transparent;
   padding: 10px 10px;
   flex-grow: 26;
 }
 
-.target-metrics .goals{
+.challenge-metrics .goals{
   font-size: 1.5rem;
   font-weight: 500;
 }
 
-.target-metrics .stack-items-holder{
+.challenge-metrics .stack-items-holder{
   width: 100%;
 }
 
 .challenge-buttons{
   flex: none;
   padding: 20px;
-  background-color: white;
+  /* background-color: white; */
   display: flex;
   flex-direction: column;
   gap: 10px;
